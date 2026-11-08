@@ -1,6 +1,9 @@
 # Your private API key file — never committed or uploaded.
 .env
 
+# Docs downloaded for your key by scripts/fetch-docs.sh — refreshed, never committed.
+docs/live/
+
 # OS noise
 .DS_Store
 

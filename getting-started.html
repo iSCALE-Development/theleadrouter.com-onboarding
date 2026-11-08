@@ -104,9 +104,9 @@
 <body>
   <p class="eyebrow">Getting started · theleadrouter.com</p>
   <h1>Welcome to The Lead Router</h1>
-  <p class="lede">Set up a personal AI assistant that knows the platform inside and out and can work with your account for you. Four steps, no technical experience needed. This guide is also available online with clickable links at <a href="https://github.com/iscale-llc/theleadrouter.com-onboarding">github.com/iscale-llc/theleadrouter.com-onboarding</a>.</p>
+  <p class="lede">Set up a personal AI assistant that knows the platform inside and out and can work with your account for you. Four steps, no technical experience needed. This guide is also available online with clickable links at <a href="https://github.com/jasonakatiff/theleadrouter.com-onboarding">github.com/jasonakatiff/theleadrouter.com-onboarding</a>.</p>
   <p>This is your getting-started kit for <a href="https://theleadrouter.com"><strong>The Lead Router</strong></a> — everything you need to set up a personal AI assistant that knows the platform inside and out and can work with your account for you.</p>
-  <p>You don't need to be technical. There are four steps, and each one is spelled out below. When you're done, you'll be able to ask your assistant things like <em>"How many leads came in yesterday, and where did they go?"</em> or <em>"Walk me through setting up a new campaign"</em> — and it will know how to answer, because this kit contains the full <span class="pill">user manual</span> and the complete API reference for <a href="https://theleadrouter.com">theleadrouter.com</a>.</p>
+  <p>You don't need to be technical. There are four steps, and each one is spelled out below. When you're done, you'll be able to ask your assistant things like <em>"How many leads came in yesterday, and where did they go?"</em> or <em>"Walk me through setting up a new campaign"</em> — and it will know how to answer, because it downloads the current <span class="pill">user manual</span> and API reference for your account from <a href="https://theleadrouter.com">theleadrouter.com</a>.</p>
 
   <hr class="rule" />
   <h2>What you'll do</h2>
@@ -167,12 +167,12 @@
 
   <hr class="rule" />
   <h2>Step 3 — Open this project inside Orca</h2>
-  <p>This very page lives in a project folder that contains the user manual and API reference your assistant will read. You just need to open it in Orca.</p>
+  <p>This very page lives in the project folder your assistant works in. You just need to open it in Orca. (The user manual and API reference are not stored here; your assistant downloads the current versions with your API key each time it starts.)</p>
   <ol>
     <li>In Orca, look for <strong>Projects</strong> and choose the option to <strong>add / open a project from GitHub</strong>.</li>
     <li>Paste in this project's address:</li>
   </ol>
-  <div class="codeblock">https://github.com/iscale-llc/theleadrouter.com-onboarding</div>
+  <div class="codeblock">https://github.com/jasonakatiff/theleadrouter.com-onboarding</div>
   <ol start="3">
     <li>Orca will download the project and show it in your Projects list.</li>
   </ol>
@@ -202,7 +202,7 @@
     <li><em>"Walk me through adding a new buyer, step by step."</em></li>
     <li><em>"Show me my active campaigns."</em></li>
   </ul>
-  <p>Your assistant reads the <span class="pill">full user manual</span> and the <span class="pill">complete API reference</span> in this project, and uses your API key to look things up in your live account at <a href="https://theleadrouter.com">theleadrouter.com</a>.</p>
+  <p>When a session starts, your assistant downloads the current <span class="pill">user manual</span> and <span class="pill">API reference</span> for your key, and uses the same key to look things up in your live account at <a href="https://theleadrouter.com">theleadrouter.com</a>. The manual is also in the app under <strong>Help → User Manual</strong>.</p>
 
   <hr class="rule" />
   <h2>What's in this project</h2>
@@ -212,6 +212,7 @@
       <tr><td><span class="pill">README.md</span></td><td>This guide</td></tr>
       <tr><td><span class="pill">getting-started.pdf</span></td><td>The same guide as a printable PDF</td></tr>
       <tr><td><span class="pill">AGENTS.md</span></td><td>Instructions your assistant reads automatically (how to use the key safely, when to ask before changing things)</td></tr>
+      <tr><td><span class="pill">scripts/fetch-docs.sh</span></td><td>Downloads the current user manual and API reference for your key into <span class="pill">docs/live/</span> (never uploaded)</td></tr>
       <tr><td><span class="pill">.env.example</span></td><td>The template for your private key file (Step 4)</td></tr>
     </tbody>
   </table>

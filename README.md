@@ -2,7 +2,7 @@
 
 This is your getting-started kit for [**The Lead Router**](https://theleadrouter.com) — everything you need to set up a personal AI assistant that knows the platform inside and out and can work with your account for you.
 
-You don't need to be technical. There are four steps, and each one is spelled out below. When you're done, you'll be able to ask your assistant things like *"How many leads came in yesterday, and where did they go?"* or *"Walk me through setting up a new campaign"* — and it will know how to answer, because it can work with your live account at [theleadrouter.com](https://theleadrouter.com) and point you to the right page of the in-app user manual.
+You don't need to be technical. There are four steps, and each one is spelled out below. When you're done, you'll be able to ask your assistant things like *"How many leads came in yesterday, and where did they go?"* or *"Walk me through setting up a new campaign"* — and it will know how to answer, because it downloads the current user manual and API reference for your account and can work with your live account at [theleadrouter.com](https://theleadrouter.com).
 
 > **Prefer a printable version?** The same guide is in this folder as a PDF: [`getting-started.pdf`](getting-started.pdf)
 
@@ -27,7 +27,7 @@ You don't need to be technical. There are four steps, and each one is spelled ou
 >
 > It asks whether you are a Lead Router customer and for your API key (do Step 1 first), then runs on its own for about 15 minutes. Safe to run again. The script is [`install.sh`](install.sh) in this project; maintainer notes are in [`installer/`](installer/README.md).
 >
-> **Already use Claude Code or Codex?** Skip the installer: clone this repo (or **Code → Download ZIP** above), copy `.env.example` to `.env` and paste your key after `LEADROUTER_API_KEY=` (Step 1), then open the folder in your tool and start a session. [`AGENTS.md`](AGENTS.md) and [`CLAUDE.md`](CLAUDE.md) tell the assistant how to use the key safely.
+> **Already use Claude Code or Codex?** Skip the installer: clone this repo (or **Code → Download ZIP** above), copy `.env.example` to `.env` and paste your key after `LEADROUTER_API_KEY=` (Step 1), then open the folder in your tool and start a session. The assistant runs `bash scripts/fetch-docs.sh` to download the current docs for your key. [`AGENTS.md`](AGENTS.md) and [`CLAUDE.md`](CLAUDE.md) tell the assistant how to use the key safely.
 
 ---
 
@@ -78,7 +78,7 @@ Orca is the desktop app where your AI assistant lives. It works on Mac, Windows,
 
 ## Step 3 — Open this project inside Orca
 
-This very page lives in a project folder that contains the user manual and API reference your assistant will read. You just need to open it in Orca.
+This very page lives in the project folder your assistant works in. You just need to open it in Orca. (The user manual and API reference are not stored here; your assistant downloads the current versions with your API key each time it starts.)
 
 1. In Orca, look for **Projects** and choose the option to **add / open a project from GitHub**.
 2. Paste in this project's address:
@@ -121,7 +121,7 @@ Start a new assistant session in Orca inside this project and try:
 - *"Walk me through adding a new buyer, step by step."*
 - *"Show me my active campaigns."*
 
-Your assistant uses your API key to look things up in your live account at [theleadrouter.com](https://theleadrouter.com). The full user manual is in the app under **Help → User Manual**.
+When a session starts, your assistant runs `scripts/fetch-docs.sh`, which downloads the current user manual and API reference for your key into `docs/live/` (only what changed since last time). It uses the same key to look things up in your live account at [theleadrouter.com](https://theleadrouter.com). The manual is also in the app under **Help → User Manual**.
 
 ---
 
@@ -133,6 +133,7 @@ Your assistant uses your API key to look things up in your live account at [thel
 | [`getting-started.pdf`](getting-started.pdf) | The same guide as a printable PDF |
 | [`docs/create-api-key.png`](docs/create-api-key.png) | Screenshot of the Create API Key form (Step 1) |
 | [`AGENTS.md`](AGENTS.md) | Instructions your assistant reads automatically (how to use the key safely, when to ask before changing things) |
+| [`scripts/fetch-docs.sh`](scripts/fetch-docs.sh) | Downloads the current user manual and API reference for your key into `docs/live/` (never uploaded) |
 | `.env.example` | The template for your private key file (Step 4) |
 | [`install.sh`](install.sh) | The one-line Mac installer (see the box at the top). Maintainer notes: [`installer/`](installer/README.md) |
 

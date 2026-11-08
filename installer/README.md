@@ -18,7 +18,7 @@ It first asks one question, **Are you a Lead Router customer?**, and if yes, ask
 | 2 | GitHub CLI | `brew install gh` (`--with-github-desktop` adds the GitHub Desktop app). |
 | 3 | Claude Code | Anthropic's native installer → `~/.local/bin/claude`. |
 | 4 | Orca | Latest DMG from `github.com/stablyai/orca` (arm64/x64 auto), → `/Applications/Orca.app`, Gatekeeper-verified. |
-| 5 | Lead Router kit | `~/Development` (+ Finder sidebar favorite), this repo cloned to `~/Development/leadrouter`, `.env` written there with `LEADROUTER_API_KEY=` (key or the `paste-your-key-here` placeholder), mode 600. |
+| 5 | Lead Router kit | `~/Development` (+ Finder sidebar favorite), this repo cloned to `~/Development/leadrouter`, `.env` written there with `LEADROUTER_API_KEY=` (key or the `paste-your-key-here` placeholder), mode 600; with a real key, `scripts/fetch-docs.sh` downloads the current manual and API reference into `docs/live/` (a failure is a warning, not a stop). |
 | 6 | `claude --dsp` | Shell function in `~/.zshrc`/`~/.bashrc` so `claude --dsp …` = `claude --dangerously-skip-permissions …`. Skipped, visibly, if a custom `claude` already exists. |
 | 7 | Open in Orca | Opens Orca, registers the folder as project **Lead Router**, opens a "Claude Code" tab and starts `claude --dangerously-skip-permissions` in it. |
 

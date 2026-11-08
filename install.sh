@@ -8,7 +8,8 @@
 #   4. Orca            latest release from github.com/stablyai/orca → /Applications
 #   5. Lead Router     ~/Development (added to Finder favorites) → ~/Development/leadrouter
 #                      cloned from github.com/jasonakatiff/theleadrouter.com-onboarding,
-#                      with a .env carrying LEADROUTER_API_KEY (your key if you are a customer)
+#                      with a .env carrying LEADROUTER_API_KEY (your key if you are a customer),
+#                      then downloads the current user manual + API reference for that key
 #   6. `claude --dsp`  shell shortcut for `claude --dangerously-skip-permissions`
 #   7. Orca project    "Lead Router" project attached to ~/Development/leadrouter, with a
 #                      Claude Code session (--dangerously-skip-permissions) open in it
@@ -29,7 +30,7 @@
 
 set -euo pipefail
 
-INSTALLER_VERSION="1.1.0"
+INSTALLER_VERSION="1.2.0"
 HOMEBREW_INSTALL_URL="https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh"
 CLAUDE_INSTALL_URL="https://claude.ai/install.sh"
 ORCA_DOWNLOAD_BASE="https://github.com/stablyai/orca/releases/latest/download"
@@ -583,6 +584,24 @@ write_env_file() {
   fi
 }
 
+# Download the manual + API reference for the key now, so the first session has them.
+# Not fatal: the assistant runs the same script at the start of every session.
+fetch_live_docs() {
+  local script="$LEADROUTER_DIR/scripts/fetch-docs.sh"
+  if [ "$DRY_RUN" = 1 ]; then say "(dry-run) would run: bash $script"; return 0; fi
+  if [ ! -f "$script" ]; then warn "Docs download script not found; the assistant will fetch the docs itself."; return 0; fi
+  if ! grep -q '^LEADROUTER_API_KEY=' "$LEADROUTER_DIR/.env" 2>/dev/null \
+     || grep -q "^LEADROUTER_API_KEY=$ENV_KEY_PLACEHOLDER" "$LEADROUTER_DIR/.env"; then
+    return 0
+  fi
+  say "Downloading the user manual and API reference for your key..."
+  if /bin/bash "$script" >>"$LOG_FILE" 2>&1; then
+    ok "User manual and API reference downloaded"
+  else
+    warn "Could not download the docs yet (see the log). The assistant will try again when it starts."
+  fi
+}
+
 setup_leadrouter_project() {
   if [ -d "$DEV_DIR" ]; then
     ok "$DEV_DIR already exists"
@@ -593,6 +612,7 @@ setup_leadrouter_project() {
   add_finder_favorite "$DEV_DIR"
   clone_leadrouter_repo || return 1
   write_env_file || return 1
+  fetch_live_docs
   record "Lead Router kit" "ready at $LEADROUTER_DIR"
 }
 

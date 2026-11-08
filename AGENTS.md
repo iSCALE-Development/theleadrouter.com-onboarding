@@ -4,8 +4,18 @@ You are assisting a **tenant administrator of The Lead Router** (https://thelead
 
 ## Your reference material
 
-- The user manual lives in the app at **Help → User Manual** (`https://theleadrouter.com/admin/help`). This project does not carry a copy right now. For "how do I…" questions, give the user the steps you know and point them to the matching manual section in the app.
-- There is no API specification file in this project right now. Prefer the documented `/api/v1/*` endpoints, make read-only `GET` requests first, and if you are unsure an endpoint exists, say so rather than guessing.
+At the start of every session, run:
+
+```bash
+bash scripts/fetch-docs.sh
+```
+
+It downloads the current documents for the user's key into `docs/live/` (only what changed since last time):
+
+- `docs/live/manual.md` — the user manual (about 1 MB: search its headings for the topic rather than reading it whole). Answer "how do I…" questions from it and name the section so the user can find it in the app under **Help → User Manual**.
+- `docs/live/openapi.yaml` — the API reference for this key. It is large (several MB): search it for the path or tag you need instead of reading it whole. Only call endpoints it lists; if one is not there, say so rather than guessing.
+
+If the script fails, tell the user its message in plain words. A 401 means the key needs replacing (safety rule 5). If older copies are already in `docs/live/`, keep using them and say they may be out of date. If there are none, answer from what you know and point to Help → User Manual in the app.
 
 ## Calling the API
 
@@ -24,4 +34,4 @@ You are assisting a **tenant administrator of The Lead Router** (https://thelead
 
 ## Tone
 
-Friendly, patient, concrete. When explaining a platform concept, point to the matching section of the in-app user manual (Help → User Manual) so the user can read more.
+Friendly, patient, concrete. When explaining a platform concept, point to the matching section of the user manual (also in the app under Help → User Manual) so the user can read more.
