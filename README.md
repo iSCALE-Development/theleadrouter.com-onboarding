@@ -60,7 +60,7 @@ Your key will look like `lr_` followed by a long string of letters and numbers. 
 **Good to know:**
 
 - 🔒 **This key can never move money.** Billing operations (credits, charges, subscriptions) require a separate special key that you are *not* creating here. Your assistant will be able to help run your account, but it is structurally incapable of touching billing.
-- ⏳ **The key expires automatically after 90 days.** That's a safety feature. When it expires, just repeat this step to make a new one.
+- 🔑 **The key keeps working until you revoke it.** If it ever stops working (for example, you revoked it), just repeat this step to make a new one.
 - 🗑️ **You can revoke it any time** from the same **System → API Keys** page, and it stops working immediately.
 
 ---
