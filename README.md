@@ -121,7 +121,7 @@ Start a new assistant session in Orca inside this project and try:
 - *"Walk me through adding a new buyer, step by step."*
 - *"Show me my active campaigns."*
 
-When a session starts, your assistant runs `scripts/fetch-docs.sh`, which downloads the current user manual and API reference for your key into `docs/live/` (only what changed since last time). It uses the same key to look things up in your live account at [theleadrouter.com](https://theleadrouter.com). The manual is also in the app under **Help → User Manual**.
+When a session starts, your assistant runs `scripts/fetch-docs.sh`, which downloads the current user manual and API reference for your key into `docs/live/` (only what changed since last time) and builds a short map of them, so the assistant reads only the part a question needs instead of the whole documents. It uses the same key to look things up in your live account at [theleadrouter.com](https://theleadrouter.com). The manual is also in the app under **Help → User Manual**.
 
 ---
 
@@ -134,6 +134,7 @@ When a session starts, your assistant runs `scripts/fetch-docs.sh`, which downlo
 | [`docs/create-api-key.png`](docs/create-api-key.png) | Screenshot of the Create API Key form (Step 1) |
 | [`AGENTS.md`](AGENTS.md) | Instructions your assistant reads automatically (how to use the key safely, when to ask before changing things) |
 | [`scripts/fetch-docs.sh`](scripts/fetch-docs.sh) | Downloads the current user manual and API reference for your key into `docs/live/` (never uploaded) |
+| [`scripts/build-docs-index.sh`](scripts/build-docs-index.sh) | Builds the short maps in `docs/live/` (`index.md` and two searchable lists) that tell your assistant which lines of the manual and API reference to read |
 | `.env.example` | The template for your private key file (Step 4) |
 | [`install.sh`](install.sh) | The one-line Mac installer (see the box at the top). Maintainer notes: [`installer/`](installer/README.md) |
 
