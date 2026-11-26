@@ -10,12 +10,17 @@ At the start of every session, run:
 bash scripts/fetch-docs.sh
 ```
 
-It downloads the current documents for the user's key into `docs/live/` (only what changed since last time):
+It downloads the current documents for the user's key into `docs/live/` (only what changed since last time) and builds a short map of them:
 
-- `docs/live/manual.md` — the user manual (about 1 MB: search its headings for the topic rather than reading it whole). Answer "how do I…" questions from it and name the section so the user can find it in the app under **Help → User Manual**.
-- `docs/live/openapi.yaml` — the API reference for this key. It is large (several MB): search it for the path or tag you need instead of reading it whole. Only call endpoints it lists; if one is not there, say so rather than guessing.
+- `docs/live/index.md` — **read this first; it is the only docs file you read whole.** It lists the manual's sections and the API areas, and says how to look things up.
+- `docs/live/manual-sections.tsv` — one row per manual heading, with its start and end line in `manual.md`. Search it with `grep -i <word>`.
+- `docs/live/manual.md` — the user manual (about 1 MB). Read only the line range of the narrowest matching heading. Answer "how do I…" questions from it and name the section so the user can find it in the app under **Help → User Manual**.
+- `docs/live/api-endpoints.tsv` — one row per API endpoint, with its start and end line in `openapi.yaml`, method, path, area and summary. Search it with `grep -i <word>`.
+- `docs/live/openapi.yaml` — the full API reference for this key (several MB). Read only an endpoint's line range. Only call endpoints it lists; if one is not there, say so rather than guessing.
 
-If the script fails, tell the user its message in plain words. A 401 means the key needs replacing (safety rule 5). If older copies are already in `docs/live/`, keep using them and say they may be out of date. If there are none, answer from what you know and point to Help → User Manual in the app.
+Open the other files only when a question needs them, and then only the lines the maps point to.
+
+If the script fails, tell the user its message in plain words. If `docs/live/index.md` is missing, find manual sections with `grep -n '^## ' docs/live/manual.md` and endpoints with `grep -n '^  /api' docs/live/openapi.yaml` instead of reading either file whole. A 401 means the key needs replacing (safety rule 5). If older copies are already in `docs/live/`, keep using them and say they may be out of date. If there are none, answer from what you know and point to Help → User Manual in the app.
 
 ## Calling the API
 

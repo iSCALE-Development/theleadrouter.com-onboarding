@@ -7,6 +7,7 @@
 # Reads LEADROUTER_API_KEY (from the environment, else from .env), asks theleadrouter.com for the documents
 # that match the key's type (System, Partner or Buyer), and saves them in
 # docs/live/ (which is never committed). Re-running only downloads what changed.
+# Then builds docs/live/index.md, a short map of both (scripts/build-docs-index.sh).
 #
 # Exit codes: 0 = docs are current, 1 = could not refresh (the message says why).
 # Runs on macOS's stock /bin/bash 3.2.
@@ -78,8 +79,13 @@ fetch() {
 fetch /api/v1/docs/manual manual.md
 fetch /api/v1/docs/openapi openapi.yaml
 
+# Rebuild the map whenever both documents exist, so older copies stay searchable too.
+if [ -s "$OUT_DIR/manual.md" ] && [ -s "$OUT_DIR/openapi.yaml" ]; then
+  bash "$ROOT/scripts/build-docs-index.sh" || FAILED=1
+fi
+
 if [ "$FAILED" = 1 ]; then
   if [ -f "$OUT_DIR/manual.md" ]; then echo "Older copies are still in docs/live/." >&2; fi
   exit 1
 fi
-echo "Docs are in docs/live/: manual.md (user manual) and openapi.yaml (API reference)."
+echo "Docs are in docs/live/. Start with docs/live/index.md; it says where to look in manual.md and openapi.yaml."
